@@ -33,7 +33,7 @@ if ( $pans )
     "Hostname: $hostname" | Out-File -FilePath $log -Append
     "IP Address: $ip_address" | Out-File -FilePath $log -Append
     "Path: $path_search" | Out-File -FilePath $log -Append
-    $prueba | Out-File -FilePath $log -Append
+    $pans | Out-File -FilePath $log -Append
 }
 else{
     Write-Host "No PAN's found" -ForegroundColor Red
