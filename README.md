@@ -4,15 +4,18 @@ It's a tool that can be used to search drives for credit card numbers (PANs). Th
 
 Born from the need to have a tool that is easy to run and use. Being developed in PowerShell doesn't require external libraries. Ideal if you require a tool that searches for possible PAN's in files on Windows computers within your organization.
 
-It's a tool that can be used to search drives for credit card numbers (PANs). 
-
 # Requirements
 - Windows computer
 - PowerShell (A recent version is recommended)
 - PowerShell interface with administrator permissions and with script execution permission
 
 # Execution
-Run the following command:
+
+By default, the script looks in C:\ and files with the extension txt, csv, and log. 
+
+This can be changed using the parameters: "path_search", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas).
+
+Here is an example:
 
 `.\Tekium_PAN_Hunter_Script.ps1 -path_search “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’`
 
