@@ -49,13 +49,15 @@ if ($files_count -gt 0) {
             $pans | Out-File -FilePath $log -Append
             Write-Host -Object "PAN's found in: $_.FullName" -ForegroundColor Green
             Write-Host -Object ''
+            "PAN's found in: $_.FullName" | Out-File -FilePath $log -Append
+            '' | Out-File -FilePath $log -Append
         }
         else{
             $files_no_pans = $files_no_pans + 1
         }
         $i = $i+1
         $Completed = ($i/$names_files.count) * 100
-        Write-Progress -Activity "Searching PAN's in: $_.FullName" -Status "Progress:" -PercentComplete $Completed
+        Write-Progress -Activity "Searching PAN's in: $_.FullName" -Status "Progress:" -PercentComplete $Completed -ErrorAction SilentlyContinue
     } -End{
         Write-Host -Object "The search for PAN's ended" -ForegroundColor Green
         Write-Host -Object ''
