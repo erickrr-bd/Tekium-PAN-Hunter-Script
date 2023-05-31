@@ -7,14 +7,15 @@ $files_no_pans = $null
 $dir_actual = (Get-Location).ToString()
 $date_actual = Get-Date -Format "yyyy_MM_dd"
 $log = $dir_actual + "\tekium_pan_hunter_$date_actual.log"
-$regex_amex = '([^0-9-]|^)(3(4[0-9]{2}|7[0-9]{2})( |-|)[0-9]{6}( |-|)[0-9]{5})([^0-9-]|$)'
-$regex_visa = '([^0-9-]|^)(4[0-9]{3}( |-|)([0-9]{4})( |-|)([0-9]{4})( |-|)([0-9]{4}))([^0-9-]|$)'
-$regex_master = '([^0-9-]|^)(5[0-9]{3}( |-|)([0-9]{4})( |-|)([0-9]{4})( |-|)([0-9]{4}))([^0-9-]|$)'
+$regex_amex = '^3[47][0-9]{13}$'
+$regex_visa = '^4[0-9]{12}(?:[0-9]{3})?$'
+$regex_master = '^5[1-5][0-9]{14}$'
 Write-Host -Object "-------------------------------------------------------------------------------------" -ForegroundColor Yellow
 Write-Host -Object "Copyright©Tekium 2023. All rights reserved." -ForegroundColor green
 Write-Host -Object "Author: Erick Roberto Rodriguez Rodriguez" -ForegroundColor green
 Write-Host -Object "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" -ForegroundColor green
-Write-Host -Object "Tekium PAN Hunter Script v1.1" -ForegroundColor green
+Write-Host -Object "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" -ForegroundColor green
+Write-Host -Object "Tekium PAN Hunter Script v1.1 - May 2023" -ForegroundColor green
 Write-Host -Object "-------------------------------------------------------------------------------------" -ForegroundColor Yellow
 Write-Host -Object "Hostname: $hostname"
 Write-Host -Object ''
@@ -38,7 +39,8 @@ if ($files_count -gt 0) {
         "Copyright©Tekium 2023. All rights reserved." | Out-File -FilePath $log -Append 
         "Author: Erick Roberto Rodriguez Rodriguez" | Out-File -FilePath $log -Append
         "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" | Out-File -FilePath $log -Append
-        "Tekium PAN Hunter Script v1.1" | Out-File -FilePath $log -Append
+        "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" | Out-File -FilePath $log -Append
+        "Tekium PAN Hunter Script v1.1 - May 2023" | Out-File -FilePath $log -Append
         "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
         "Hostname: $hostname" | Out-File -FilePath $log -Append
         "Path: $path_search" | Out-File -FilePath $log -Append
