@@ -4,10 +4,13 @@ It's a tool that can be used to search drives for credit card numbers (PANs). Th
 
 Born from the need to have a tool that is easy to run and use. Being developed in PowerShell doesn't require external libraries. Ideal if you require a tool that searches for possible PAN's in files on Windows computers within your organization.
 
+Search for American Express, VISA and MasterCard card numbers.
+
 # Requirements
-- Windows computer
+- Windows operating system
 - PowerShell (A recent version is recommended)
-- PowerShell interface with administrator permissions and with script execution permission
+- PowerShell Console (Executed with administrator permissions)
+- Script execution enabled (Otherwise, run `Set-ExecutionPolicy Unrestricted`)
 
 # Execution
 
