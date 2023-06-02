@@ -14,7 +14,7 @@ Search for American Express, VISA and MasterCard card numbers.
 
 # Requirements for Linux Systems
 - Linux operating system (Tested on Red Hat, Rocky Linux, and CentOS)
-- Bash Console (Executed with administrator permissions)
+- User with administrator permissions
 
 # Running on Windows systems
 
