@@ -34,7 +34,7 @@ First you must give execution permissions to the file "Tekium_PAN_Hunter_Script.
 
 By default, the script files with the extension txt, csv, docx, xlsx, xls, doc and log.
 
-It must be indicated by means of a parameter the route where the search for the possible PAN's will be carried out. 
+It must be indicated by means of a parameter the path or folder where the search for the possible PAN's will be carried out. 
 
 Here is an example:
 
