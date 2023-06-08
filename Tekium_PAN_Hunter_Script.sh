@@ -23,9 +23,9 @@ echo -e "\033[32mCopyright©Tekium 2023. All rights reserved.\033[0m" | tee -a $
 echo -e "\033[32mAuthor: Erick Roberto Rodriguez Rodriguez\033[0m" | tee -a $log
 echo -e "\033[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com\033[0m" | tee -a $log
 echo -e "\033[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script\033[0m" | tee -a $log
-echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1 - June 2023\033[0m" | tee -a $log
+echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1.2 - June 2023\033[0m" | tee -a $log
 echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
-echo -e "Hostname: $HOSTNAME\n" | tee -a $log
+echo -e "\nHostname: $HOSTNAME\n" | tee -a $log
 echo -e "Path: $path_search\n" | tee -a $log
 echo -e "Start the file search with the filters (it takes a few minutes)\n"
 files_count=$(find $path_search -regextype posix-egrep -iregex '.*\.(txt|csv|docx|xlsx|log|xls|doc)$' -type f 2>/dev/null | wc -l) 
@@ -42,7 +42,20 @@ if [[ $files_count -gt 0 ]];then
     		result=$(egrep -l "$regex_amex|$regex_visa|$regex_master" $file 2>/dev/null)
     		if [ $result ];then
     			echo -e "\n\033[32mPAN's found in: $result\033[0m\n" | tee -a $log
-    			lines=$(egrep -n "$regex_amex|$regex_visa|$regex_master" $file 2>/dev/null)
+    			lines=$(egrep -o "$regex_amex|$regex_visa|$regex_master" $file 2>/dev/null | head -n5 | awk '{
+               		begin=substr($0, 1, 5)
+               		rest=substr($0, 6)
+               		gsub(/./, "x", rest)
+               		if ($0 ~ /([^0-9-]|^)(3(4[0-9]{2}|7[0-9]{2})( |-|)[0-9]{6}( |-|)[0-9]{5})([^0-9-]|$)/){
+               			print begin, rest " AMEX"
+               		}
+               		if ($0 ~ /([^0-9-]|^)(4[0-9]{3}( |-|)([0-9]{4})( |-|)([0-9]{4})( |-|)([0-9]{4}))([^0-9-]|$)/){
+               			print begin, rest " VISA"
+               		}
+               		else{
+               			print begin, rest " MASTER CARD"
+               		}
+               	}' OFS="")
     			echo -e "$lines\n" | tee -a $log
     		else
     			let files_no_pans=files_no_pans+1
@@ -56,9 +69,9 @@ if [[ $files_count -gt 0 ]];then
 	if [[ $files_no_pans -eq $files_count ]];then
 		echo -e "\n\033[31mNo PAN's found\033[0m" | tee -a $log
 	else
-		echo -e "\n\033[32mPAN's found\033[0m" | tee -a $log
+		echo -e "\n\n\033[32mPAN's found\033[0m" | tee -a $log
 	fi
-	echo -e "\n\033[32mThe search for PAN's ended\033[0m"
+	echo -e "\n\033[32mThe PAN's search is over\033[0m"
 else
 	echo -e "\033[31mNo files found\033[0m" | tee -a $log
 fi
