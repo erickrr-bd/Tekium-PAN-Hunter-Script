@@ -27,13 +27,13 @@ echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1.2 - June 2023\033[0m" |
 echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
 echo -e "\nHostname: $HOSTNAME\n" | tee -a $log
 echo -e "Path: $path_search\n" | tee -a $log
-echo -e "Start the file search with the filters (it takes a few minutes)\n"
+echo -e "Searching for files with the filters set (this may take several minutes):\n"
 files_count=$(find $path_search -regextype posix-egrep -iregex '.*\.(txt|csv|docx|xlsx|log|xls|doc)$' -type f 2>/dev/null | wc -l) 
 if [[ $files_count -gt 0 ]];then
 	i=0
 	files_no_pans=0
 	echo -e "\033[32m$files_count files found\033[0m\n" | tee -a $log
-	echo -e "Start the search for PAN's in the found files (it takes a few minutes)"
+	echo -e "Searching for possible PANs in the found files (this may take several minutes):"
 	names_files=$(find $path_search -regextype posix-egrep -iregex '.*\.(txt|csv|docx|xlsx|log|xls|doc)$' -type f 2>/dev/null) 
 	for file in $names_files
 	do
@@ -41,19 +41,19 @@ if [[ $files_count -gt 0 ]];then
 			echo -e "\nSearch in: $file"
     		result=$(egrep -l "$regex_amex|$regex_visa|$regex_master" $file 2>/dev/null)
     		if [ $result ];then
-    			echo -e "\n\033[32mPAN's found in: $result\033[0m\n" | tee -a $log
+    			echo -e "\n\033[32mPossible PANs found in: $result\033[0m\n" | tee -a $log
     			lines=$(egrep -o "$regex_amex|$regex_visa|$regex_master" $file 2>/dev/null | head -n5 | awk '{
-               		begin=substr($0, 1, 5)
-               		rest=substr($0, 6)
-               		gsub(/./, "x", rest)
+               		begin=substr($0, 2, 12)
+               		rest=substr($0, 14)
+               		gsub(/./, "x", begin)
                		if ($0 ~ /([^0-9-]|^)(3(4[0-9]{2}|7[0-9]{2})( |-|)[0-9]{6}( |-|)[0-9]{5})([^0-9-]|$)/){
-               			print begin, rest " AMEX"
+               			print " ", begin, rest " AMEX"
                		}
                		if ($0 ~ /([^0-9-]|^)(4[0-9]{3}( |-|)([0-9]{4})( |-|)([0-9]{4})( |-|)([0-9]{4}))([^0-9-]|$)/){
-               			print begin, rest " VISA"
+               			print " ", begin, rest " VISA"
                		}
                		else{
-               			print begin, rest " MASTER CARD"
+               			print " ", begin, rest " MASTER CARD"
                		}
                	}' OFS="")
     			echo -e "$lines\n" | tee -a $log
@@ -69,7 +69,7 @@ if [[ $files_count -gt 0 ]];then
 	if [[ $files_no_pans -eq $files_count ]];then
 		echo -e "\n\033[31mNo PAN's found\033[0m" | tee -a $log
 	else
-		echo -e "\n\n\033[32mPAN's found\033[0m" | tee -a $log
+		echo -e "\n\n\033[32mPossible PAN's found\033[0m" | tee -a $log
 	fi
 	echo -e "\n\033[32mThe PAN's search is over\033[0m"
 else
