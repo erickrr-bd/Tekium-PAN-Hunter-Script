@@ -45,6 +45,29 @@ For example:
 
 `.\Tekium_PAN_Hunter_Script.sh /home/user/Documents`
 
+# Example output
+
+```
+-------------------------------------------------------------------------------------
+Copyright©Tekium 2023. All rights reserved.
+Author: Erick Roberto Rodriguez Rodriguez
+Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com
+GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script
+Tekium PAN Hunter Script v1.1.2 for Windows - June 2023
+-------------------------------------------------------------------------------------
+Hostname: LAPTOP-NUDA94QT
+Path: C:\Users\reric\Downloads
+Filters: *.log *.txt *.csv *.docx *.xlsx *.xls *.doc
+
+ XXXXXXXXXXXX0004  MASTER CARD
+ XXXXXXXXXXXX0055  MASTER CARD
+ XXXXXXXXXXXX0006  MASTER CARD
+ XXXXXXXXXXXX0009  VISA
+ XXXXXXXXXXXX0004  VISA
+
+Possible PAN's found in: C:\Users\reric\Downloads\Nuevo Documento de texto.txt.FullName
+```
+
 # Commercial Support
 ![Tekium](https://github.com/unmanarc/uAuditAnalyzer2/blob/master/art/tekium_slogo.jpeg)
 
