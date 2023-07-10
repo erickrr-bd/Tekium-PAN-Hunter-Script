@@ -68,6 +68,35 @@ Filters: *.log *.txt *.csv *.docx *.xlsx *.xls *.doc
 Possible PAN's found in: C:\Users\reric\Downloads\Nuevo Documento de texto.txt.FullName
 ```
 
+```
+[33m-------------------------------------------------------------------------------[0m
+[32mCopyright©Tekium 2023. All rights reserved.[0m
+[32mAuthor: Erick Roberto Rodriguez Rodriguez[0m
+[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com[0m
+[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script[0m
+[32mTekium PAN Hunter Script for Linux v1.1.2 - June 2023[0m
+[33m-------------------------------------------------------------------------------[0m
+
+Hostname: srv-develops-tekium
+
+Path: /home/erodriguez/Documentos/Projects/
+
+[32m2 files found[0m
+
+
+[32mPossible PANs found in: /home/erodriguez/Documentos/Projects/prueba.txt[0m
+
+ xxxxxxxxxxxx0004  MASTER CARD
+ xxxxxxxxxxxx0055  MASTER CARD
+ xxxxxxxxxxxx0006  MASTER CARD
+ xxxxxxxxxxxx0009  VISA
+ xxxxxxxxxxxx0004  VISA
+
+
+
+[32mPossible PAN's found[0m
+```
+
 # Commercial Support
 ![Tekium](https://github.com/unmanarc/uAuditAnalyzer2/blob/master/art/tekium_slogo.jpeg)
 
