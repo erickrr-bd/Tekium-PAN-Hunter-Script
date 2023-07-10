@@ -37,7 +37,7 @@ Give execution permissions to the file "Tekium_PAN_Hunter_Script.sh", for this t
 
 `chmod +x Tekium_PAN_Hunter_Script.sh`
 
-By default, the script files with the extension txt, csv, docx, xlsx, xls, doc and log. 
+By default, the script looks in files with the extension: txt, csv, docx, xlsx, xls, doc and log. 
 
 You must indicate the path where the script will perform the search (recursively).
 
