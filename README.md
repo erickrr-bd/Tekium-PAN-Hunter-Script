@@ -92,9 +92,6 @@ Path: /home/erodriguez/Documentos/Projects/
  xxxxxxxxxxxx0009  VISA
  xxxxxxxxxxxx0004  VISA
 
-
-
-[32mPossible PAN's found[0m
 ```
 
 # Commercial Support
