@@ -1,10 +1,15 @@
-# Tekium PAN Hunter Script v1.1
+# Tekium PAN Hunter Script v1.1.2
 
 It's a tool that can be used to search drives for credit card numbers (PANs). This is useful for checking PCI DSS scope accuracy.
 
-Born from the need to have a tool that is easy to run and use. Ideal if you need a tool that looks for possible PAN's on your organization's Windows and Linux computers.
+Born from the need to have a tool that is easy to run and use. Ideal if you need a tool that looks for possible PAN's on your organization.
 
-Search for American Express, VISA and MasterCard card numbers.
+# Characteristics
+- Search for VISA, AMEX and MASTER CARD card numbers (based on regular expressions)
+- Shows the first five matches of each file
+- Masks the first 12 characters of the card number, for security reasons
+- Generates a log file with the search results
+- Shows the progress of the search on the screen
 
 # Requirements for Windows Systems
 - Windows operating system
@@ -22,23 +27,72 @@ By default, the script looks in C:\ and files with the extension txt, csv, and l
 
 This can be changed using the parameters: "path_search", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas).
 
-Here is an example:
+For example:
 
 `.\Tekium_PAN_Hunter_Script.ps1 -path_search “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’, ‘*.xls’, ‘*.doc’`
 
 # Running on Linux systems
 
-First you must give execution permissions to the file "Tekium_PAN_Hunter_Script.sh", for this the following command is executed:
+Give execution permissions to the file "Tekium_PAN_Hunter_Script.sh", for this the following command is executed:
 
 `chmod +x Tekium_PAN_Hunter_Script.sh`
 
-By default, the script files with the extension txt, csv, docx, xlsx, xls, doc and log.
+By default, the script looks in files with the extension: txt, csv, docx, xlsx, xls, doc and log. 
 
-It must be indicated by means of a parameter the path or folder where the search for the possible PAN's will be carried out. 
+You must indicate the path where the script will perform the search (recursively).
 
-Here is an example:
+For example:
 
-`.\Tekium_PAN_Hunter_Script.sh /etc`
+`.\Tekium_PAN_Hunter_Script.sh /home/user/Documents`
+
+# Example output
+
+```
+-------------------------------------------------------------------------------------
+Copyright©Tekium 2023. All rights reserved.
+Author: Erick Roberto Rodriguez Rodriguez
+Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com
+GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script
+Tekium PAN Hunter Script v1.1.2 for Windows - June 2023
+-------------------------------------------------------------------------------------
+Hostname: LAPTOP-NUDA94QT
+Path: C:\Users\reric\Downloads
+Filters: *.log *.txt *.csv *.docx *.xlsx *.xls *.doc
+
+ XXXXXXXXXXXX0004  MASTER CARD
+ XXXXXXXXXXXX0055  MASTER CARD
+ XXXXXXXXXXXX0006  MASTER CARD
+ XXXXXXXXXXXX0009  VISA
+ XXXXXXXXXXXX0004  VISA
+
+Possible PAN's found in: C:\Users\reric\Downloads\Nuevo Documento de texto.txt.FullName
+```
+
+```
+[33m-------------------------------------------------------------------------------[0m
+[32mCopyright©Tekium 2023. All rights reserved.[0m
+[32mAuthor: Erick Roberto Rodriguez Rodriguez[0m
+[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com[0m
+[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script[0m
+[32mTekium PAN Hunter Script for Linux v1.1.2 - June 2023[0m
+[33m-------------------------------------------------------------------------------[0m
+
+Hostname: srv-develops-tekium
+
+Path: /home/erodriguez/Documentos/Projects/
+
+[32m2 files found[0m
+
+
+[32mPossible PANs found in: /home/erodriguez/Documentos/Projects/prueba.txt[0m
+
+ xxxxxxxxxxxx0004  MASTER CARD
+ xxxxxxxxxxxx0055  MASTER CARD
+ xxxxxxxxxxxx0006  MASTER CARD
+ xxxxxxxxxxxx0009  VISA
+ xxxxxxxxxxxx0004  VISA
+
+```
 
 # Commercial Support
 ![Tekium](https://github.com/unmanarc/uAuditAnalyzer2/blob/master/art/tekium_slogo.jpeg)
