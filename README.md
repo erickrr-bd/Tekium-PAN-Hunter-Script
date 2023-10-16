@@ -30,7 +30,7 @@ This can be changed using the parameters: "path_search", where the path where th
 
 For example:
 
-`.\Tekium_PAN_Hunter_Script.ps1 -path_search “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’, ‘*.xls’, ‘*.doc’`
+`.\Tekium_PAN_Hunter_Script.ps1 -search_path “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’, ‘*.xls’, ‘*.doc’`
 
 # Running on Linux systems
 
@@ -54,19 +54,20 @@ Copyright©Tekium 2023. All rights reserved.
 Author: Erick Roberto Rodriguez Rodriguez
 Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com
 GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script
-Tekium PAN Hunter Script v1.1.2 for Windows - June 2023
+Tekium PAN Hunter Script v1.1.3 for Windows - October 2023
 -------------------------------------------------------------------------------------
 Hostname: LAPTOP-NUDA94QT
-Path: C:\Users\reric\Downloads
+Path: C:\Users
 Filters: *.log *.txt *.csv *.docx *.xlsx *.xls *.doc
+Exclude: 
 
- XXXXXXXXXXXX0004  MASTER CARD
- XXXXXXXXXXXX0055  MASTER CARD
- XXXXXXXXXXXX0006  MASTER CARD
- XXXXXXXXXXXX0009  VISA
- XXXXXXXXXXXX0004  VISA
+XXXX XXXX XXXX 0004 MASTER CARD
+XXXXXXXXXXXX0055 MASTER CARD
+XXXXXXXXXXXX0006 MASTER CARD
+XXXXXXXXXXXX0009 VISA
+XXXXXXXXXXXX0004 VISA
 
-Possible PAN's found in: C:\Users\reric\Downloads\Nuevo Documento de texto.txt.FullName
+Possible PAN's found in: C:\Users\reric\Downloads\prueba.txt.FullName
 ```
 
 ```
@@ -92,7 +93,6 @@ Path: /home/erodriguez/Documentos/Projects/
  xxxxxxxxxxxx0006  MASTER CARD
  xxxxxxxxxxxx0009  VISA
  xxxxxxxxxxxx0004  VISA
-
 ```
 
 # Commercial Support
