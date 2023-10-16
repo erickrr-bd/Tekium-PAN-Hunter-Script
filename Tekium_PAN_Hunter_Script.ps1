@@ -53,12 +53,11 @@ function PrintPan{
     )
     if($Parsing_type -eq 1){
         $begin = $pan.Substring(0,12) -replace '[0-9]','X'
-        $rest = $pan.Substring($pan.length -4) 
     }
     else{
         $begin = $pan.Substring(0,15) -replace '[0-9]','X'
-        $rest = $pan.Substring($pan.length -4) 
     }
+    $rest = $pan.Substring($pan.length -4) 
     Write-Output -InputObject "$begin$rest $Pan_type"
     "$begin$rest $Pan_type" | Out-File -FilePath $log -Append
 }
@@ -114,7 +113,7 @@ if ($total_files -gt 0) {
         "Tekium PAN Hunter Script v1.1.3 for Windows - October 2023" | Out-File -FilePath $log -Append
         "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
         "Hostname: $hostname" | Out-File -FilePath $log -Append
-        "Path: $path_search" | Out-File -FilePath $log -Append
+        "Path: $search_path" | Out-File -FilePath $log -Append
         "Filters: $filters" | Out-File -FilePath $log -Append
         "Exclude: $exclude_path`n" | Out-File -FilePath $log -Append
     } -Process{
