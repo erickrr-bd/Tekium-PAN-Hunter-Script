@@ -10,7 +10,7 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 - Masks the first 12 characters of the card number, for security reasons
 - Generates a log file with the search results
 - Shows the progress of the search on the screen
-- Validate the possible PAN using the Luhn algorithm [For more information]([https://es.wikipedia.org/wiki/Algoritmo_de_Luhn])
+- Validate the possible PAN using the Luhn algorithm [For more information](https://es.wikipedia.org/wiki/Algoritmo_de_Luhn)
 
 # Requirements for Windows Systems
 - Windows operating system
@@ -33,13 +33,13 @@ optional arguments:
   -exclude_path       Path or paths that are excluded from the search
 ```
 
-By default, the script looks in C:\ and files with the extension txt, csv, and log. 
+By default, the script looks in C:\ and files with the extension .txt, .csv, and .log. 
 
-This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas).
+This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas). The "exclude_path" parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: "C:\Windows", "C:\Program and Files" (separated by commas).
 
 For example:
 
-`.\Tekium_PAN_Hunter_Script.ps1 -search_path “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’, ‘*.xls’, ‘*.doc’`
+`.\Tekium_PAN_Hunter_Script.ps1 -search_path “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’, ‘*.xls’, ‘*.doc’ -exclude_path "C:\Users\Downloads"`
 
 # Running on Linux systems
 
