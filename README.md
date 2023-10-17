@@ -35,7 +35,7 @@ optional arguments:
 
 By default, the script looks in C:\ and files with the extension .txt, .csv, and .log. 
 
-This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas). The "exclude_path" parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: "C:\Windows", "C:\Program and Files" (separated by commas).
+This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: ‘*.txt’, ‘*.docx’, ‘*.xml’ (separated by commas). The "exclude_path" parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: "C:\Windows", "C:\Program and Files" (separated by commas).
 
 For example:
 
