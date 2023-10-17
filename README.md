@@ -10,7 +10,7 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 - Masks the first 12 characters of the card number, for security reasons
 - Generates a log file with the search results
 - Shows the progress of the search on the screen
-- Validate the possible PAN using the Luhn algorithm
+- Validate the possible PAN using the Luhn algorithm [For more information]([https://es.wikipedia.org/wiki/Algoritmo_de_Luhn])
 
 # Requirements for Windows Systems
 - Windows operating system
@@ -24,9 +24,18 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 
 # Running on Windows systems
 
+```
+usage: ./Tekium_PAN_Hunter_Script.ps1 [-search_path] [-filters] [-exclude_path]
+
+optional arguments:
+  -search_path       Path where the possible PANs will be searched (default: C:\)
+  -filters       Extensions of the files to be searched (default: '*.txt','*.csv','*.log')
+  -exclude_path       Path or paths that are excluded from the search
+```
+
 By default, the script looks in C:\ and files with the extension txt, csv, and log. 
 
-This can be changed using the parameters: "path_search", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas).
+This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: '*.txt', '*.docx', '*.xlsx' (separated by commas).
 
 For example:
 
