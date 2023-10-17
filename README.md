@@ -10,7 +10,7 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 - Masks the first 12 characters of the card number, for security reasons
 - Generates a log file with the search results
 - Shows the progress of the search on the screen
-- Validate the possible PAN using the Luhn algorithm [For more information](https://es.wikipedia.org/wiki/Algoritmo_de_Luhn)
+- Validate the possible PAN using the [Luhn algorithm](https://es.wikipedia.org/wiki/Algoritmo_de_Luhn)
 
 # Requirements for Windows Systems
 - Windows operating system
