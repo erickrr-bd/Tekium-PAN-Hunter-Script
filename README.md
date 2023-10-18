@@ -25,7 +25,7 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 # Running on Windows systems
 
 ```
-usage: ./Tekium_PAN_Hunter_Script.ps1 [-search_path] [-filters] [-exclude_path]
+usage: .\Tekium_PAN_Hunter_Script.ps1 [-search_path] [-filters] [-exclude_path]
 
 optional arguments:
   -search_path       Path where the possible PANs will be searched (default: C:\)
@@ -35,11 +35,15 @@ optional arguments:
 
 By default, the script looks in C:\ and files with the extension .txt, .csv, and .log. 
 
-This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: ‘*.txt’, ‘*.docx’, ‘*.xml’ (separated by commas). The "exclude_path" parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: "C:\Windows", "C:\Program and Files" (separated by commas).
+This can be changed using the parameters: "search_path", where the path where the search will be performed (recursively) is indicated. The other is "filters" where the file types where the PANs will be searched are indicated, these must be specified as follows: `‘*.txt’, ‘*.docx’, ‘*.xml’` (separated by commas). The "exclude_path" parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: `"C:\Windows", "C:\Program and Files"` (separated by commas).
 
 For example:
 
 `.\Tekium_PAN_Hunter_Script.ps1 -search_path “C:\Users” -filters ‘*.log’, ‘*.txt’, ‘*.csv’, ‘*.docx’, ‘*.xlsx’, ‘*.xls’, ‘*.doc’ -exclude_path "C:\Users\Downloads"`
+
+**NOTE:** To obtain information about the script, such as usage and parameters, you can use the following command:
+
+`Get-Help .\Tekium_PAN_Hunter_Script.ps1 -full`
 
 # Running on Linux systems
 
