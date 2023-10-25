@@ -4,10 +4,8 @@ function ProgressBar {
     let _progress=(${1}*100/${2}*100)/100
     let _done=(${_progress}*4)/10
     let _left=40-$_done
-
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")
-	
 	printf "\rProgress : [${_fill// /#}${_empty// /-}] ${_progress}%%"
 }
 
@@ -54,6 +52,7 @@ clear
 search_path=$1
 filters=$2
 exclude_path=$3
+j=0
 current_date=`date +"%d-%m-%Y"`
 log="tekium_pan_hunter_$current_date.log"
 amex_regex_without_spaces='3\d{3}\d{4}\d{4}\d{4}'
@@ -65,6 +64,12 @@ master_regex_dash='5\d{3}-\d{4}-\d{4}-\d{4}'
 amex_regex_with_spaces='3\d{3}\s\d{4}\s\d{4}\s\d{4}'
 visa_regex_with_spaces='4\d{3}\s\d{4}\s\d{4}\s\d{4}'
 master_regex_with_spaces='5\d{3}\s\d{4}\s\d{4}\s\d{4}'
+if [[ ! $search_path ]];then
+	search_path="/"
+fi
+if [[ ! $filters ]];then
+	filters="txt,csv,log" 
+fi
 echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
 echo -e "\033[32mCopyright©Tekium 2023. All rights reserved.\033[0m" | tee -a $log
 echo -e "\033[32mAuthor: Erick Roberto Rodriguez Rodriguez\033[0m" | tee -a $log
@@ -109,6 +114,7 @@ if [[ $total_files -gt 0 ]]; then
 	echo -e "Searching for possible PANs in the found files (this may take several minutes):"
 	for file in $files
 	do
+		j=$((j+1))
 		if [ -f "$file" ]; then
 			echo -e "\nSearch in: $file"
     		result=$(grep -Po "$amex_regex_without_spaces|$visa_regex_without_spaces|$master_regex_without_spaces|$amex_regex_dash|$visa_regex_dash|$master_regex_dash|$amex_regex_with_spaces|$visa_regex_with_spaces|$master_regex_with_spaces" $file 2>/dev/null | head -n 5)
@@ -158,11 +164,13 @@ if [[ $total_files -gt 0 ]]; then
 		else
 			echo -e "\n\033[31mFile not found: $file\033[0m"
 		fi
+		echo '' | tee -a $log
+		ProgressBar $j $total_files
 	done
 	if [[ $files_no_pans -eq $total_files ]];then
-		echo -e "\n\033[31mNo PAN's found\033[0m" | tee -a $log
+		echo -e "\n\n\033[31mNo PAN's found\033[0m" | tee -a $log
 	fi
-	echo -e "\n\033[32mThe PAN's search is over\033[0m"
+	echo -e "\n\n\033[32mThe PAN's search is over\033[0m"
 else
 	echo -e "\033[31mNo files found\033[0m" | tee -a $log
 fi
