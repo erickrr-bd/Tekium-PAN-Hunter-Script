@@ -47,17 +47,15 @@ For example:
 
 # Running on Linux systems
 
-Give execution permissions to the file "Tekium_PAN_Hunter_Script.sh", for this the following command is executed:
+Give execution permissions to the "Tekium_PAN_Hunter_Script.sh" file. Use the following command:
 
 `chmod +x Tekium_PAN_Hunter_Script.sh`
 
-By default, the script looks in files with the extension: txt, csv, docx, xlsx, xls, doc and log.
-
-You must indicate the path where the script will perform the search (recursively).
+This can be changed using the parameters: The first parameter indicates the path where the search will be performed (recursively). The second parameter indicates the types of files where the PANs will be searched, these must be specified as follows: `txt,docx,xml` (separated by commas). The third parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: `/home/user,/etc/,/bin` (separated by commas).
 
 For example:
 
-`.\Tekium_PAN_Hunter_Script.sh /home/user/Documents`
+`.\Tekium_PAN_Hunter_Script.sh /home/user/Documents txt,csv,docx,xlsx,xml /home/user/Documents/new_folder`
 
 # Example output
 
