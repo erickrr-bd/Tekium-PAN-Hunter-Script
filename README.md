@@ -51,7 +51,7 @@ Give execution permissions to the file "Tekium_PAN_Hunter_Script.sh", for this t
 
 `chmod +x Tekium_PAN_Hunter_Script.sh`
 
-By default, the script looks in files with the extension: txt, csv, docx, xlsx, xls, doc and log. 
+By default, the script looks in files with the extension: txt, csv, docx, xlsx, xls, doc and log.
 
 You must indicate the path where the script will perform the search (recursively).
 
@@ -82,30 +82,30 @@ XXXXXXXXXXXX0004 VISA
 
 Possible PAN's found in: C:\Users\reric\Downloads\prueba.txt.FullName
 ```
-
 ```
 [33m-------------------------------------------------------------------------------[0m
 [32mCopyright©Tekium 2023. All rights reserved.[0m
 [32mAuthor: Erick Roberto Rodriguez Rodriguez[0m
 [32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com[0m
 [32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script[0m
-[32mTekium PAN Hunter Script for Linux v1.1.2 - June 2023[0m
+[32mTekium PAN Hunter Script for Linux v1.1.3 - October 2023[0m
 [33m-------------------------------------------------------------------------------[0m
 
 Hostname: srv-develops-tekium
 
-Path: /home/erodriguez/Documentos/Projects/
+Path: /home/erodriguez/
+Filters: log,txt,csv
+Exclude: 
 
-[32m2 files found[0m
-
+[32m26 files found[0m
 
 [32mPossible PANs found in: /home/erodriguez/Documentos/Projects/prueba.txt[0m
 
- xxxxxxxxxxxx0004  MASTER CARD
- xxxxxxxxxxxx0055  MASTER CARD
- xxxxxxxxxxxx0006  MASTER CARD
- xxxxxxxxxxxx0009  VISA
- xxxxxxxxxxxx0004  VISA
+XXXX-XXXX-XXXX-0004 MASTER CARD
+XXXXXXXXXXXX0055 MASTER CARD
+XXXXXXXXXXXX0006 MASTER CARD
+XXXXXXXXXXXX0009 VISA
+XXXXXXXXXXXX0004 VISA
 ```
 
 # Commercial Support
