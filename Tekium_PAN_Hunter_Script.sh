@@ -81,7 +81,24 @@ echo -e "Searching for files with the filters set (this may take several minutes
 aux=$(echo "$filters" | sed -r 's/,/|/g')
 ext_file_regex=".*\.($aux)$"
 if [[ $exclude_path ]]; then
-	echo "Excluir"
+	exclude_paths=$(echo $exclude_path | tr "," "\n")
+	exclude_paths_array=($exclude_paths)
+	total_exclude_paths="${#exclude_paths_array[@]}"
+	if [[ $total_exclude_paths -eq 1 ]];then
+		files=$(find $search_path -path $exclude_paths -prune -o -regextype posix-egrep -iregex $ext_file_regex -type f 2>/dev/null)
+	else
+		exclude_path_string=' -path '
+		for path in $exclude_paths
+		do
+			if [[ $i < $((total_exclude_paths-1)) ]];then
+				exclude_path_string="$exclude_path_string $path -o -path"
+			else
+				exclude_path_string="$exclude_path_string $path"
+			fi
+			i=$((i+1))
+		done
+		files=$(find $search_path \( $exclude_path_string  \) -prune -o -regextype posix-egrep -iregex $ext_file_regex -type f 2>/dev/null)
+	fi
 else
 	files=$(find $search_path -regextype posix-egrep -iregex $ext_file_regex -type f 2>/dev/null)
 fi
