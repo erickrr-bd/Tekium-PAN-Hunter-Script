@@ -8,18 +8,19 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 - Search for VISA, AMEX and MASTER CARD card numbers (based on regular expressions)
 - Shows the first five matches of each file
 - Masks the first 12 characters of the card number, for security reasons
+- Option to exclude specific directories or folders
 - Generates a log file with the search results
 - Shows the progress of the search on the screen
 - Validate the possible PAN using the [Luhn algorithm](https://es.wikipedia.org/wiki/Algoritmo_de_Luhn)
 
 # Requirements for Windows Systems
-- Windows operating system
+- Windows system
 - PowerShell (A recent version is recommended)
 - PowerShell Console (Executed with administrator permissions)
 - Script execution enabled (Otherwise, run `Set-ExecutionPolicy Unrestricted`)
 
 # Requirements for Linux Systems
-- Linux operating system (Tested on Red Hat, Rocky Linux, and CentOS)
+- Linux system (Tested on Red Hat, Rocky Linux, and CentOS)
 - User with administrator permissions
 
 # Running on Windows systems
@@ -47,17 +48,17 @@ For example:
 
 # Running on Linux systems
 
-Give execution permissions to the file "Tekium_PAN_Hunter_Script.sh", for this the following command is executed:
+Give execution permissions to the "Tekium_PAN_Hunter_Script.sh" file. Use the following command:
 
 `chmod +x Tekium_PAN_Hunter_Script.sh`
 
-By default, the script looks in files with the extension: txt, csv, docx, xlsx, xls, doc and log.
+By default, the script looks in / and files with the extension .txt, .csv, and .log. 
 
-You must indicate the path where the script will perform the search (recursively).
+This can be changed using the parameters: The first parameter indicates the path where the search will be performed (recursively). The second parameter indicates the types of files where the PANs will be searched, these must be specified as follows: `txt,docx,xml` (separated by commas). The third parameter is optional and should only be used if you need to exclude certain directories or folders from the search. These paths must be specified as follows: `/home/user,/etc/,/bin` (separated by commas).
 
 For example:
 
-`.\Tekium_PAN_Hunter_Script.sh /home/user/Documents`
+`./Tekium_PAN_Hunter_Script.sh /home/user/Documents txt,csv,docx,xlsx,xml /home/user/Documents/new_folder`
 
 # Example output
 
