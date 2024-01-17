@@ -21,6 +21,7 @@ function PrintPan {
 	fi
 	begin_mask=$(echo ${begin//[0-9]/X})
 	rest=${pan: -4}
+	begin_mask=$(echo $begin_mask | tr '_' ' ')
 	echo "$begin_mask$rest $pan_type" | tee -a $log
 }
 
@@ -61,6 +62,9 @@ master_regex_without_spaces='5\d{3}\d{4}\d{4}\d{4}'
 amex_regex_dash='3\d{3}-\d{4}-\d{4}-\d{4}'
 visa_regex_dash='4\d{3}-\d{4}-\d{4}-\d{4}'
 master_regex_dash='5\d{3}-\d{4}-\d{4}-\d{4}'
+amex_regex_underscore='3\d{3}_\d{4}_\d{4}_\d{4}'
+visa_regex_underscore='4\d{3}_\d{4}_\d{4}_\d{4}'
+master_regex_underscore='5\d{3}_\d{4}_\d{4}_\d{4}'
 amex_regex_with_spaces='3\d{3}\s\d{4}\s\d{4}\s\d{4}'
 visa_regex_with_spaces='4\d{3}\s\d{4}\s\d{4}\s\d{4}'
 master_regex_with_spaces='5\d{3}\s\d{4}\s\d{4}\s\d{4}'
@@ -71,13 +75,14 @@ if [[ ! $filters ]];then
 	filters="txt,csv,log" 
 fi
 echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
-echo -e "\033[32mCopyright©Tekium 2023. All rights reserved.\033[0m" | tee -a $log
+echo -e "\033[32mCopyright©Tekium 2024. All rights reserved.\033[0m" | tee -a $log
 echo -e "\033[32mAuthor: Erick Roberto Rodriguez Rodriguez\033[0m" | tee -a $log
 echo -e "\033[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com\033[0m" | tee -a $log
 echo -e "\033[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script\033[0m" | tee -a $log
-echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1.3 - October 2023\033[0m" | tee -a $log
+echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1.4 - January 2024\033[0m" | tee -a $log
 echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
 echo -e "\nHostname: $HOSTNAME\n" | tee -a $log
+echo -e "Scan start date: $(date)\n" | tee -a $log
 echo -e "Path: $search_path" | tee -a $log
 echo -e "Filters: $filters" | tee -a $log
 echo -e "Exclude: $exclude_path\n" | tee -a $log 
@@ -116,16 +121,17 @@ if [[ $total_files -gt 0 ]]; then
 	do
 		j=$((j+1))
 		if [ -f "$file" ]; then
-			echo -e "\nSearch in: $file"
-    		result=$(grep -Po "$amex_regex_without_spaces|$visa_regex_without_spaces|$master_regex_without_spaces|$amex_regex_dash|$visa_regex_dash|$master_regex_dash|$amex_regex_with_spaces|$visa_regex_with_spaces|$master_regex_with_spaces" $file 2>/dev/null | head -n 5)
+			is_pan=0
+			echo -e "\nSearch in: $file\n"
+    		result=$(grep -Po "$amex_regex_without_spaces|$visa_regex_without_spaces|$master_regex_without_spaces|$amex_regex_dash|$visa_regex_dash|$master_regex_dash|$amex_regex_with_spaces|$visa_regex_with_spaces|$master_regex_with_spaces" $file 2>/dev/null | tr ' ' '_' | head -n 5)
     		if [[ $result ]];then
-    			echo -e "\n\033[32mPossible PANs found in: $file\033[0m\n" | tee -a $log
     			for pan in $result
     			do
 					if [ $(echo $pan | grep -Po "$amex_regex_dash|$visa_regex_dash|$master_regex_dash") ]; then
 						pan_original=$pan
 						pan_without_spaces=$(echo ${pan//-/''})
 						if LuhnValidation $pan_without_spaces;then
+							is_pan=$((is_pan+1))
 							if [ $(echo $pan_original | grep -Po $amex_regex_dash) ];then
 								PrintPan $pan_original "AMEX" 2
 							elif [ $(echo $pan_original | grep -Po $visa_regex_dash) ];then
@@ -134,20 +140,22 @@ if [[ $total_files -gt 0 ]]; then
 								PrintPan $pan_original "MASTER CARD" 2
 							fi
 						fi
-					elif [ $(echo $pan | grep -Po "$amex_regex_with_spaces|$visa_regex_with_spaces|$master_regex_with_spaces") ]; then
+					elif [ $(echo $pan | grep -Po "$amex_regex_underscore|$visa_regex_underscore|$master_regex_underscore") ]; then
 						pan_original=$pan
-						pan_without_spaces=$(echo ${pan//' '/''})
+						pan_without_spaces=$(echo ${pan//'_'/''})
 						if LuhnValidation $pan_without_spaces;then
-							if [ $(echo $pan_original | grep -Po $amex_regex_with_spaces) ];then
+							is_pan=$((is_pan+1))
+							if [ $(echo $pan_original | grep -Po $amex_regex_underscore) ];then
 								PrintPan $pan_original "AMEX" 2
-							elif [ $(echo $pan_original | grep -Po $visa_regex_with_spaces) ];then
+							elif [ $(echo $pan_original | grep -Po $visa_regex_underscore) ];then
 								PrintPan $pan_original "VISA" 2
-							elif [ $(echo $pan_original | grep -Po $master_regex_with_spaces) ];then
+							elif [ $(echo $pan_original | grep -Po $master_regex_underscore) ];then
 								PrintPan $pan_original "MASTER CARD" 2
 							fi
 						fi
 					else
 						if LuhnValidation $pan;then
+							is_pan=$((is_pan+1))
 							if [ $(echo $pan | grep -Po $amex_regex_without_spaces) ];then
 								PrintPan $pan "AMEX" 1
 							elif [ $(echo $pan | grep -Po $visa_regex_without_spaces) ];then
@@ -161,6 +169,9 @@ if [[ $total_files -gt 0 ]]; then
     		else
     			files_no_pans=$((files_no_pans+1))
     		fi
+    		if [[ $is_pan -gt 0 ]];then
+    			echo -e "\n\033[32mPossible PANs found in: $file\033[0m" | tee -a $log
+    		fi
 		else
 			echo -e "\n\033[31mFile not found: $file\033[0m"
 		fi
@@ -170,7 +181,7 @@ if [[ $total_files -gt 0 ]]; then
 	if [[ $files_no_pans -eq $total_files ]];then
 		echo -e "\n\n\033[31mNo PAN's found\033[0m" | tee -a $log
 	fi
-	echo -e "\n\n\033[32mThe PAN's search is over\033[0m"
+	echo -e "\n\nScan end date: $(date)" | tee -a $log
 else
 	echo -e "\033[31mNo files found\033[0m" | tee -a $log
 fi
