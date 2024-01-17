@@ -79,13 +79,14 @@ $amex_regex_with_spaces = '3\d{3}\s\d{4}\s\d{4}\s\d{4}'
 $visa_regex_with_spaces = '4\d{3}\s\d{4}\s\d{4}\s\d{4}'
 $master_regex_with_spaces = '5\d{3}\s\d{4}\s\d{4}\s\d{4}'
 Write-Host -Object "-------------------------------------------------------------------------------------" -ForegroundColor Yellow
-Write-Host -Object "Copyright©Tekium 2023. All rights reserved." -ForegroundColor green
+Write-Host -Object "Copyright©Tekium 2024. All rights reserved." -ForegroundColor green
 Write-Host -Object "Author: Erick Roberto Rodriguez Rodriguez" -ForegroundColor green
 Write-Host -Object "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" -ForegroundColor green
 Write-Host -Object "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" -ForegroundColor green
-Write-Host -Object "Tekium PAN Hunter Script for Windows v1.1.3 - October 2023" -ForegroundColor green
+Write-Host -Object "Tekium PAN Hunter Script for Windows v1.1.4 - January 2024" -ForegroundColor green
 Write-Host -Object "-------------------------------------------------------------------------------------" -ForegroundColor Yellow
 Write-Output -InputObject "Hostname: $hostname`n"
+Write-Output -InputObject "Scan start date: $(Get-Date)`n"
 Write-Output -InputObject "Path: $search_path`n"
 Write-Output -InputObject "Filters: $filters`n"
 Write-Output -InputObject "Exclude: $exclude_path`n"
@@ -106,13 +107,14 @@ if ($total_files -gt 0) {
         $i = 0
         $files_no_pans = 0
         "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
-        "Copyright©Tekium 2023. All rights reserved." | Out-File -FilePath $log -Append 
+        "Copyright©Tekium 2024. All rights reserved." | Out-File -FilePath $log -Append 
         "Author: Erick Roberto Rodriguez Rodriguez" | Out-File -FilePath $log -Append
         "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" | Out-File -FilePath $log -Append
         "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" | Out-File -FilePath $log -Append
-        "Tekium PAN Hunter Script v1.1.3 for Windows - October 2023" | Out-File -FilePath $log -Append
+        "Tekium PAN Hunter Script v1.1.4 for Windows - January 2024" | Out-File -FilePath $log -Append
         "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
         "Hostname: $hostname" | Out-File -FilePath $log -Append
+        "Scan start date: $(Get-Date)" | Out-File -FilePath $log -Append
         "Path: $search_path" | Out-File -FilePath $log -Append
         "Filters: $filters" | Out-File -FilePath $log -Append
         "Exclude: $exclude_path`n" | Out-File -FilePath $log -Append
@@ -176,7 +178,8 @@ if ($total_files -gt 0) {
         $Completed = ($i/$names_files.count) * 100
         Write-Progress -Activity "Searching PAN's in: $_.FullName" -Status "Progress:" -PercentComplete $Completed -ErrorAction SilentlyContinue
     } -End{
-        Write-Host -Object "The search for PAN's is over`n" -ForegroundColor Green
+        Write-Output -InputObject "Scan end date: $(Get-Date)`n"
+        "Scan end date: $(Get-Date)" | Out-File -FilePath $log -Append
         if ($files_no_pans -eq $names_files.count){
             Write-Host -Object "No PAN's found`n" -ForegroundColor Red
             "`nNo PAN's found" | Out-File -FilePath $log -Append
