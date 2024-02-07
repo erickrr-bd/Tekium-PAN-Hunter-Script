@@ -1,4 +1,4 @@
-# Tekium PAN Hunter Script v1.1.3
+# Tekium PAN Hunter Script v1.1.4
 
 It's a tool that can be used to search drives for credit card numbers (PANs). This is useful for checking PCI DSS scope accuracy.
 
@@ -6,12 +6,13 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 
 # Characteristics
 - Search for VISA, AMEX and MASTER CARD card numbers (based on regular expressions)
-- Shows the first five matches of each file
+- Shows the total number of possible PAN's per file
 - Masks the first 12 characters of the card number, for security reasons
 - Option to exclude specific directories or folders
 - Generates a log file with the search results
 - Shows the progress of the search on the screen
 - Validate the possible PAN using the [Luhn algorithm](https://es.wikipedia.org/wiki/Algoritmo_de_Luhn)
+- Obtains the hash of the file with the result (validate file integrity)
 
 # Requirements for Windows Systems
 - Windows system
