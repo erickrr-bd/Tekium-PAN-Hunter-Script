@@ -66,9 +66,8 @@ $i = $null
 $names_files = $null
 $files_no_pans = $null
 $exclusion_string = $null
-$hostname = hostname
-$date_actual = Get-Date -Format "yyyy_MM_dd"
-$log = "tekium_pan_hunter_$date_actual.log"
+$log = "tekium_pan_hunter_$(Get-Date -Format "yyyy_MM_dd").log"
+$hash_file = "hash.txt"
 $amex_regex_without_spaces ='3\d{3}\d{4}\d{4}\d{4}'
 $visa_regex_without_spaces ='4\d{3}\d{4}\d{4}\d{4}'
 $master_regex_without_spaces ='5\d{3}\d{4}\d{4}\d{4}'
@@ -79,13 +78,14 @@ $amex_regex_with_spaces = '3\d{3}\s\d{4}\s\d{4}\s\d{4}'
 $visa_regex_with_spaces = '4\d{3}\s\d{4}\s\d{4}\s\d{4}'
 $master_regex_with_spaces = '5\d{3}\s\d{4}\s\d{4}\s\d{4}'
 Write-Host -Object "-------------------------------------------------------------------------------------" -ForegroundColor Yellow
-Write-Host -Object "Copyright©Tekium 2023. All rights reserved." -ForegroundColor green
+Write-Host -Object "Copyright©Tekium 2024. All rights reserved." -ForegroundColor green
 Write-Host -Object "Author: Erick Roberto Rodriguez Rodriguez" -ForegroundColor green
 Write-Host -Object "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" -ForegroundColor green
 Write-Host -Object "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" -ForegroundColor green
-Write-Host -Object "Tekium PAN Hunter Script for Windows v1.1.3 - October 2023" -ForegroundColor green
+Write-Host -Object "Tekium PAN Hunter Script for Windows v1.1.4 - February 2024" -ForegroundColor green
 Write-Host -Object "-------------------------------------------------------------------------------------" -ForegroundColor Yellow
-Write-Output -InputObject "Hostname: $hostname`n"
+Write-Output -InputObject "Hostname: $(hostname)`n"
+Write-Output -InputObject "Scan start date: $(Get-Date)`n"
 Write-Output -InputObject "Path: $search_path`n"
 Write-Output -InputObject "Filters: $filters`n"
 Write-Output -InputObject "Exclude: $exclude_path`n"
@@ -106,20 +106,21 @@ if ($total_files -gt 0) {
         $i = 0
         $files_no_pans = 0
         "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
-        "Copyright©Tekium 2023. All rights reserved." | Out-File -FilePath $log -Append 
+        "Copyright©Tekium 2024. All rights reserved." | Out-File -FilePath $log -Append 
         "Author: Erick Roberto Rodriguez Rodriguez" | Out-File -FilePath $log -Append
         "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" | Out-File -FilePath $log -Append
         "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" | Out-File -FilePath $log -Append
-        "Tekium PAN Hunter Script v1.1.3 for Windows - October 2023" | Out-File -FilePath $log -Append
+        "Tekium PAN Hunter Script v1.1.4 for Windows - February 2024" | Out-File -FilePath $log -Append
         "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
-        "Hostname: $hostname" | Out-File -FilePath $log -Append
+        "Hostname: $(hostname)" | Out-File -FilePath $log -Append
+        "Scan start date: $(Get-Date)" | Out-File -FilePath $log -Append
         "Path: $search_path" | Out-File -FilePath $log -Append
         "Filters: $filters" | Out-File -FilePath $log -Append
         "Exclude: $exclude_path`n" | Out-File -FilePath $log -Append
     } -Process{
-        $pans = Select-String -Path $_.FullName -Pattern $amex_regex_without_spaces, $visa_regex_without_spaces, $master_regex_without_spaces, $amex_regex_dash, $visa_regex_dash, $master_regex_dash, $amex_regex_with_spaces, $visa_regex_with_spaces, $master_regex_with_spaces -AllMatches -ErrorAction SilentlyContinue | Select-Object -First 5
+        $pans = Select-String -Path $_.FullName -Pattern $amex_regex_without_spaces, $visa_regex_without_spaces, $master_regex_without_spaces, $amex_regex_dash, $visa_regex_dash, $master_regex_dash, $amex_regex_with_spaces, $visa_regex_with_spaces, $master_regex_with_spaces -AllMatches -ErrorAction SilentlyContinue 
         if ( $pans ){
-            $cont = 0
+            $is_pan = 0
             ForEach($pan in $pans.Matches){
                 if($pan -match $amex_regex_without_spaces -Or $pan -match $visa_regex_without_spaces -Or $pan -match $master_regex_without_spaces){
                     if(LuhnValidation -Pan $pan){
@@ -132,7 +133,7 @@ if ($total_files -gt 0) {
                         if ($pan -match $master_regex_without_spaces) {
                             PrintPan -Pan $pan.ToString() -Pan_type "MASTER CARD" -Parsing_type 1
                         }
-                        $cont = $cont + 1
+                        $is_pan = $is_pan + 1
                     }
                 }
                 elseif($pan -match $amex_regex_dash -Or $pan -match $visa_regex_dash -Or $pan -match $master_regex_dash){
@@ -146,7 +147,7 @@ if ($total_files -gt 0) {
                         if ($pan -match $master_regex_dash) {
                             PrintPan -Pan $pan.ToString() -Pan_type "MASTER CARD" -Parsing_type 2
                         }
-                        $cont = $cont + 1
+                        $is_pan = $is_pan + 1
                     }
                 }
                 elseif($pan -match $amex_regex_with_spaces -Or $pan -match $visa_regex_with_spaces -Or $pan -match $master_regex_with_spaces){
@@ -160,13 +161,15 @@ if ($total_files -gt 0) {
                         if ($pan -match $master_regex_with_spaces) {
                             PrintPan -Pan $pan.ToString() -Pan_type "MASTER CARD" -Parsing_type 2
                         }
-                        $cont = $cont + 1
+                        $is_pan = $is_pan + 1
                     }
                 }
             }
-            if($cont -gt 0){
-                Write-Host -Object "`nPossible PAN's found in: $_.FullName`n" -ForegroundColor Green
-                "`nPossible PAN's found in: $_.FullName`n" | Out-File -FilePath $log -Append
+            if($is_pan -gt 0){
+                Write-Host -Object "`nTotal possible PAN's: $is_pan" -ForegroundColor Green
+                "`nTotal possible PAN's: $is_pan" | Out-File -FilePath $log -Append
+                Write-Host -Object "`nPossible PAN's found in: $_.FullName`n`n" -ForegroundColor Green
+                "`nPossible PAN's found in: $_.FullName`n`n" | Out-File -FilePath $log -Append
             }
         }
         else{
@@ -176,11 +179,13 @@ if ($total_files -gt 0) {
         $Completed = ($i/$names_files.count) * 100
         Write-Progress -Activity "Searching PAN's in: $_.FullName" -Status "Progress:" -PercentComplete $Completed -ErrorAction SilentlyContinue
     } -End{
-        Write-Host -Object "The search for PAN's is over`n" -ForegroundColor Green
+        Write-Output -InputObject "Scan end date: $(Get-Date)`n"
+        "Scan end date: $(Get-Date)" | Out-File -FilePath $log -Append
         if ($files_no_pans -eq $names_files.count){
             Write-Host -Object "No PAN's found`n" -ForegroundColor Red
             "`nNo PAN's found" | Out-File -FilePath $log -Append
         }
+        $(Get-FileHash -Path $log).Hash | Out-File -FilePath $hash_file
     }
 }
 else{
