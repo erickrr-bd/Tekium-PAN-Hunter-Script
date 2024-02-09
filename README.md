@@ -47,6 +47,11 @@ For example:
 
 `Get-Help .\Tekium_PAN_Hunter_Script.ps1 -full`
 
+# Get executable on Windows systems
+
+
+[ps2exe](https://github.com/MScholtes/PS2EXE)
+
 # Running on Linux systems
 
 Give execution permissions to the "Tekium_PAN_Hunter_Script.sh" file. Use the following command:
