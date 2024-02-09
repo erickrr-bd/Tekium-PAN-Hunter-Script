@@ -56,6 +56,7 @@ exclude_path=$3
 j=0
 current_date=`date +"%d-%m-%Y"`
 log="tekium_pan_hunter_$current_date.log"
+hash_file="hash.txt"
 amex_regex_without_spaces='3\d{3}\d{4}\d{4}\d{4}'
 visa_regex_without_spaces='4\d{3}\d{4}\d{4}\d{4}'
 master_regex_without_spaces='5\d{3}\d{4}\d{4}\d{4}'
@@ -74,13 +75,13 @@ fi
 if [[ ! $filters ]];then
 	filters="txt,csv,log" 
 fi
-echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
-echo -e "\033[32mCopyright©Tekium 2024. All rights reserved.\033[0m" | tee -a $log
-echo -e "\033[32mAuthor: Erick Roberto Rodriguez Rodriguez\033[0m" | tee -a $log
-echo -e "\033[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com\033[0m" | tee -a $log
-echo -e "\033[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script\033[0m" | tee -a $log
-echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1.4 - January 2024\033[0m" | tee -a $log
-echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee -a $log
+echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+echo -e "\033[32mCopyright©Tekium 2024. All rights reserved.\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+echo -e "\033[32mAuthor: Erick Roberto Rodriguez Rodriguez\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+echo -e "\033[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+echo -e "\033[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+echo -e "\033[32mTekium PAN Hunter Script for Linux v1.1.4 - February 2024\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+echo -e "\033[33m-------------------------------------------------------------------------------\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
 echo -e "\nHostname: $HOSTNAME\n" | tee -a $log
 echo -e "Scan start date: $(date)\n" | tee -a $log
 echo -e "Path: $search_path" | tee -a $log
@@ -115,7 +116,7 @@ fi
 files_array=($files)
 total_files="${#files_array[@]}"
 if [[ $total_files -gt 0 ]]; then
-	echo -e "\033[32m$total_files files found\033[0m\n" | tee -a $log
+	echo -e "\033[32m$total_files files found\033[0m\n" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
 	echo -e "Searching for possible PANs in the found files (this may take several minutes):"
 	for file in $files
 	do
@@ -123,7 +124,7 @@ if [[ $total_files -gt 0 ]]; then
 		if [ -f "$file" ]; then
 			is_pan=0
 			echo -e "\nSearch in: $file\n"
-    		result=$(grep -Po "$amex_regex_without_spaces|$visa_regex_without_spaces|$master_regex_without_spaces|$amex_regex_dash|$visa_regex_dash|$master_regex_dash|$amex_regex_with_spaces|$visa_regex_with_spaces|$master_regex_with_spaces" $file 2>/dev/null | tr ' ' '_' | head -n 5)
+    		result=$(grep -Po "$amex_regex_without_spaces|$visa_regex_without_spaces|$master_regex_without_spaces|$amex_regex_dash|$visa_regex_dash|$master_regex_dash|$amex_regex_with_spaces|$visa_regex_with_spaces|$master_regex_with_spaces" $file 2>/dev/null | tr ' ' '_')
     		if [[ $result ]];then
     			for pan in $result
     			do
@@ -170,7 +171,8 @@ if [[ $total_files -gt 0 ]]; then
     			files_no_pans=$((files_no_pans+1))
     		fi
     		if [[ $is_pan -gt 0 ]];then
-    			echo -e "\n\033[32mPossible PANs found in: $file\033[0m" | tee -a $log
+    			echo -e "\n\033[32mTotal possible PAN's: $is_pan\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
+    			echo -e "\033[32mPossible PANs found in: $file\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
     		fi
 		else
 			echo -e "\n\033[31mFile not found: $file\033[0m"
@@ -179,9 +181,10 @@ if [[ $total_files -gt 0 ]]; then
 		ProgressBar $j $total_files
 	done
 	if [[ $files_no_pans -eq $total_files ]];then
-		echo -e "\n\n\033[31mNo PAN's found\033[0m" | tee -a $log
+		echo -e "\n\n\033[31mNo PAN's found\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
 	fi
 	echo -e "\n\nScan end date: $(date)" | tee -a $log
+	sha256sum $log > $hash_file
 else
-	echo -e "\033[31mNo files found\033[0m" | tee -a $log
+	echo -e "\033[31mNo files found\033[0m" | tee >(sed $'s/\033[[][^A-Za-z]*m//g' >> $log)
 fi
