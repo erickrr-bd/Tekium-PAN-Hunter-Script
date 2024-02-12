@@ -47,10 +47,33 @@ For example:
 
 `Get-Help .\Tekium_PAN_Hunter_Script.ps1 -full`
 
-# Get executable on Windows systems
+# Generate executable file on Windows systems
 
+It's possible to generate an executable for Windows systems (.exe) using the ps2exe tool. To do this, you must first install the plugin:
 
-[ps2exe](https://github.com/MScholtes/PS2EXE)
+`Install-Module ps2exe`
+
+To generate the executable you must use the tool as follows:
+
+`ps2exe .\Tekium_PAN_Hunter_Script.ps1 .\Tekium_PAN_Hunter_Script.exe`
+
+For more information:
+[ps2exe tool](https://github.com/MScholtes/PS2EXE)
+
+**NOTE:** It was observed that when generating the executable, the parameters didn't work correctly. Therefore, this is ideal when you require the search to be performed with the default values.
+
+# Generate executable file on Linux systems
+
+It's possible to generate an executable for Linux systems using the Shc tool. To do this, you must first install the tool:
+
+`yum install shc`
+
+To generate the executable you must use the tool as follows:
+
+`shc -f Tekium_PAN_Hunter_Script.sh` 
+
+For more information:
+[Shell Script Compiler](https://github.com/neurobin/shc)
 
 # Running on Linux systems
 
@@ -70,49 +93,70 @@ For example:
 
 ```
 -------------------------------------------------------------------------------------
-Copyright©Tekium 2023. All rights reserved.
+Copyright©Tekium 2024. All rights reserved.
 Author: Erick Roberto Rodriguez Rodriguez
 Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com
 GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script
-Tekium PAN Hunter Script v1.1.3 for Windows - October 2023
+Tekium PAN Hunter Script v1.1.4 for Windows - February 2024
 -------------------------------------------------------------------------------------
 Hostname: LAPTOP-NUDA94QT
+Scan start date: 02/12/2024 16:58:19
 Path: C:\Users
-Filters: *.log *.txt *.csv *.docx *.xlsx *.xls *.doc
+Filters: *.log *.txt *.csv *.xlsx *.xls
 Exclude: 
 
-XXXX XXXX XXXX 0004 MASTER CARD
+XXXXXXXXXXXX0004 MASTER CARD
 XXXXXXXXXXXX0055 MASTER CARD
 XXXXXXXXXXXX0006 MASTER CARD
 XXXXXXXXXXXX0009 VISA
 XXXXXXXXXXXX0004 VISA
+XXXXXXXXXXXX3011 VISA
+XXXXXXXXXXXX2012 VISA
+XXXXXXXXXXXX0787 VISA
+XXXXXXXXXXXX8884 MASTER CARD
+XXXXXXXXXXXX8885 VISA
+XXXXXXXXXXXX4940 VISA
+XXXXXXXXXXXX7709 VISA
+
+Total possible PAN's: 12
 
 Possible PAN's found in: C:\Users\reric\Downloads\prueba.txt.FullName
-```
-```
-[33m-------------------------------------------------------------------------------[0m
-[32mCopyright©Tekium 2023. All rights reserved.[0m
-[32mAuthor: Erick Roberto Rodriguez Rodriguez[0m
-[32mEmail: erodriguez@tekium.mx, erickrr.tbd93@gmail.com[0m
-[32mGitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script[0m
-[32mTekium PAN Hunter Script for Linux v1.1.3 - October 2023[0m
-[33m-------------------------------------------------------------------------------[0m
 
+Scan end date: 02/12/2024 16:58:25
+```
+```
+-------------------------------------------------------------------------------
+Copyright©Tekium 2024. All rights reserved.
+Author: Erick Roberto Rodriguez Rodriguez
+Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com
+GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script
+Tekium PAN Hunter Script for Linux v1.1.4 - February 2024
+-------------------------------------------------------------------------------
 Hostname: srv-develops-tekium
+Scan start date: lun feb 12 16:55:26 CST 2024
+Path: /home/erodriguez/Documentos/
+Filters: txt,csv,log
+Exclude:
 
-Path: /home/erodriguez/
-Filters: log,txt,csv
-Exclude: 
+4 files found
 
-[32m26 files found[0m
-
-[32mPossible PANs found in: /home/erodriguez/Documentos/Projects/prueba.txt[0m
-
-XXXX-XXXX-XXXX-0004 MASTER CARD
-XXXXXXXXXXXX0055 MASTER CARD
+XXXX XXXX XXXX 0004 MASTER CARD
+XXXX-XXXX-XXXX-0055 MASTER CARD
 XXXXXXXXXXXX0006 MASTER CARD
 XXXXXXXXXXXX0009 VISA
 XXXXXXXXXXXX0004 VISA
+XXXXXXXXXXXX3011 VISA
+XXXXXXXXXXXX2012 VISA
+XXXXXXXXXXXX0787 VISA
+XXXXXXXXXXXX8884 MASTER CARD
+XXXXXXXXXXXX8885 VISA
+XXXXXXXXXXXX4940 VISA
+XXXXXXXXXXXX7709 VISA
+
+Total possible PAN's: 12
+Possible PANs found in: /home/erodriguez/Documentos/Pruebas/prueba.txt
+
+Scan end date: lun feb 12 16:55:27 CST 2024
 ```
 
 # Commercial Support
