@@ -21,7 +21,7 @@ Born from the need to have a tool that is easy to run and use. Ideal if you need
 - Script execution enabled (Otherwise, run `Set-ExecutionPolicy Unrestricted`)
 
 # Requirements for Linux Systems
-- Linux system (Tested on Red Hat, Rocky Linux, and CentOS)
+- Linux system (Tested on Red Hat 8, Rocky Linux 8, and CentOS 8)
 - User with administrator permissions
 
 # Running on Windows systems
