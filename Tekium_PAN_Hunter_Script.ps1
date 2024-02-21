@@ -59,7 +59,7 @@ function PrintPan{
     }
     $rest = $pan.Substring($pan.length -4) 
     Write-Output -InputObject "$begin$rest $Pan_type"
-    "$begin$rest $Pan_type" | Out-File -FilePath $log -Append
+    "$begin$rest $Pan_type" | Out-File -Encoding utf8 -FilePath $log -Append
 }
 
 $i = $null
@@ -105,18 +105,18 @@ if ($total_files -gt 0) {
     $names_files | ForEach-Object -Begin{
         $i = 0
         $files_no_pans = 0
-        "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
-        "Copyright©Tekium 2024. All rights reserved." | Out-File -FilePath $log -Append 
-        "Author: Erick Roberto Rodriguez Rodriguez" | Out-File -FilePath $log -Append
-        "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" | Out-File -FilePath $log -Append
-        "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" | Out-File -FilePath $log -Append
-        "Tekium PAN Hunter Script v1.1.4 for Windows - February 2024" | Out-File -FilePath $log -Append
-        "-------------------------------------------------------------------------------------" | Out-File -FilePath $log -Append
-        "Hostname: $(hostname)" | Out-File -FilePath $log -Append
-        "Scan start date: $(Get-Date)" | Out-File -FilePath $log -Append
-        "Path: $search_path" | Out-File -FilePath $log -Append
-        "Filters: $filters" | Out-File -FilePath $log -Append
-        "Exclude: $exclude_path`n" | Out-File -FilePath $log -Append
+        "-------------------------------------------------------------------------------------" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Copyright©Tekium 2024. All rights reserved." | Out-File -Encoding utf8 -FilePath $log -Append 
+        "Author: Erick Roberto Rodriguez Rodriguez" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Email: erodriguez@tekium.mx, erickrr.tbd93@gmail.com" | Out-File -Encoding utf8 -FilePath $log -Append
+        "GitHub: https://github.com/erickrr-bd/Tekium-PAN-Hunter-Script" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Tekium PAN Hunter Script v1.1.4 for Windows - February 2024" | Out-File -Encoding utf8 -FilePath $log -Append
+        "-------------------------------------------------------------------------------------" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Hostname: $(hostname)" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Scan start date: $(Get-Date)" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Path: $search_path" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Filters: $filters" | Out-File -Encoding utf8 -FilePath $log -Append
+        "Exclude: $exclude_path`n" | Out-File -Encoding utf8 -FilePath $log -Append
     } -Process{
         $pans = Select-String -Path $_.FullName -Pattern $amex_regex_without_spaces, $visa_regex_without_spaces, $master_regex_without_spaces, $amex_regex_dash, $visa_regex_dash, $master_regex_dash, $amex_regex_with_spaces, $visa_regex_with_spaces, $master_regex_with_spaces -AllMatches -ErrorAction SilentlyContinue 
         if ( $pans ){
@@ -167,9 +167,9 @@ if ($total_files -gt 0) {
             }
             if($is_pan -gt 0){
                 Write-Host -Object "`nTotal possible PAN's: $is_pan" -ForegroundColor Green
-                "`nTotal possible PAN's: $is_pan" | Out-File -FilePath $log -Append
+                "`nTotal possible PAN's: $is_pan" | Out-File -Encoding utf8 -FilePath $log -Append
                 Write-Host -Object "`nPossible PAN's found in: $_.FullName`n`n" -ForegroundColor Green
-                "`nPossible PAN's found in: $_.FullName`n`n" | Out-File -FilePath $log -Append
+                "`nPossible PAN's found in: $_.FullName`n`n" | Out-File -Encoding utf8 -FilePath $log -Append
             }
         }
         else{
@@ -180,10 +180,10 @@ if ($total_files -gt 0) {
         Write-Progress -Activity "Searching PAN's in: $_.FullName" -Status "Progress:" -PercentComplete $Completed -ErrorAction SilentlyContinue
     } -End{
         Write-Output -InputObject "Scan end date: $(Get-Date)`n"
-        "Scan end date: $(Get-Date)" | Out-File -FilePath $log -Append
+        "Scan end date: $(Get-Date)" | Out-File -Encoding utf8 -FilePath $log -Append
         if ($files_no_pans -eq $names_files.count){
             Write-Host -Object "No PAN's found`n" -ForegroundColor Red
-            "`nNo PAN's found" | Out-File -FilePath $log -Append
+            "`nNo PAN's found" | Out-File -Encoding utf8 -FilePath $log -Append
         }
         $(Get-FileHash -Path $log).Hash | Out-File -FilePath $hash_file
     }
